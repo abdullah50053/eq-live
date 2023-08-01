@@ -42,7 +42,14 @@ def fetch_eq_data(period='daily', region='Worldwide', min_mag=1):
     # Convert 'time' to pd datetime
     df_earthquake['time'] = pd.to_datetime(df_earthquake['time'])
     
-
+    # Set lat and long to some default if not found
+    if region in df_earthquake['area'].to_list():
+        df_earthquake = df_earthquake[df_earthquake['area'] == region]
+        max_mag = df_earthquake['mag'].max()
+        center_lat = df_earthquake[df_earthquake['mag'] == max_mag]['latitude'].values[0]
+        center_long = df_earthquake[df_earthquake['mag'] == max_mag]['longitude'].values[0]
+    else:
+        center_lat, center_long = [54,15]
 
 
 # Create Visualizer 
