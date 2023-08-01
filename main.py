@@ -51,5 +51,10 @@ def fetch_eq_data(period='daily', region='Worldwide', min_mag=1):
     else:
         center_lat, center_long = [54,15]
 
+    # Set cols for animation frames
+    # weekdays, dates, and hours 
+    if period == 'weekly':
+        animation_frame_col = 'weekday'
+        df_earthquake[animation_frame_col] = df_earthquake['time'] # TO BE CONTINUED
 
 # Create Visualizer 
