@@ -66,6 +66,13 @@ def fetch_eq_data(period='daily', region='Worldwide', min_mag=1):
     # weekdays, dates, and hours 
     if period == 'weekly':
         animation_frame_col = 'weekday'
-        df_earthquake[animation_frame_col] = df_earthquake['time'] # TO BE CONTINUED
+        df_earthquake[animation_frame_col] = df_earthquake['time'].apply(extract_weekday)
+    elif period == 'monthly':
+        animation_frame_col = 'date'
+        df_earthquake[animation_frame_col] = df_earthquake['time'].apply(extract_date)
+    else:
+        animation_frame_col = 'hours'
+        df_earthquake[animation_frame_col] = df_earthquake['time'].apply(extract_hour)
 
+    df_earthquake = df_earthquake.sort_values(by='time')
 # Create Visualizer 
