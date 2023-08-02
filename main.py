@@ -11,6 +11,17 @@ def extract_subarea(place):
 def extract_area(place):
     return place[-1]
 
+def extract_date(time):
+    return str(time).split(' ')[0]
+
+def extract_weekday(time):
+    date = extract_date(time)
+    return date + ' - ' + str(time.weekday())
+
+def extract_hour(time):
+    t = str(time).split(' ')
+    return t[0] + ' - ' + t[1].split(':')[0]
+
 # Fetch data and clean it
 def fetch_eq_data(period='daily', region='Worldwide', min_mag=1):
     # Where we are getting data from
