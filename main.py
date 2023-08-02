@@ -75,4 +75,31 @@ def fetch_eq_data(period='daily', region='Worldwide', min_mag=1):
         df_earthquake[animation_frame_col] = df_earthquake['time'].apply(extract_hour)
 
     df_earthquake = df_earthquake.sort_values(by='time')
+
+    return df_earthquake, center_lat, center_long
+
+
 # Create Visualizer 
+def visualize_eq_data(period='daily', region='Worldwide', min_mag=1):
+    df_earthquake, center_lat, center_long = fetch_eq_data(period=period, region=region,min_mag=min_mag)
+
+    if period == 'monthly':
+        animation_frame_col = 'date'
+    elif period == 'weekly':
+        animation_frame_col = 'weekday'
+    else:
+        animation_frame_col = 'hours'
+
+    fig = px.scatter_mapbox(
+        data_frame=df_earthquake,
+        lat='latitude',
+        lon='longitude',
+        center=dict(lat=center_lat, lon=center_long),
+        size='mag',
+        color='mag',
+        hover_name='sub_area',
+        zoom=1,
+        mapbox_style='carto-positron',
+        animation_frame=animation_frame_col,
+        title='Earthquakes'
+    )
