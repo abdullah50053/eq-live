@@ -103,3 +103,9 @@ def visualize_eq_data(period='daily', region='Worldwide', min_mag=1):
         animation_frame=animation_frame_col,
         title='Earthquakes'
     )
+
+    fig.show()
+
+    return None
+
+visualize_eq_data(period='monthly', region='California', min_mag=1)
